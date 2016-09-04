@@ -1,0 +1,21 @@
+version: '2'
+services:
+  mosquitto:
+    image: toke/mosquitto
+    restart: always
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./config:/mqtt/config:ro
+      - ./logs:/mqtt/logs:rw
+    ports:
+      - "1883:1883"
+      - "8883:8883"
+      - "9001:9001"
+      - "9883:9883"
+    mem_limit: 200m
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "5"
+
