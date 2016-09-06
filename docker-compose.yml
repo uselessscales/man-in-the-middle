@@ -8,14 +8,33 @@ services:
       - ./config:/mqtt/config:ro
       - ./logs:/mqtt/logs:rw
     ports:
-      - "1883:1883"
       - "8883:8883"
-      - "9001:9001"
       - "9883:9883"
+    networks:
+      - mosquitto-nodered
     mem_limit: 200m
     logging:
       driver: "json-file"
       options:
         max-size: "1m"
         max-file: "5"
+  
+  nodered:
+    build: ./nodered
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - volume_nodered:/data:rw
+    ports:
+      - "443:443"
+      - "80:80"
+      - "1880:1880"
+    networks:
+      - mosquitto-nodered
 
+volumes:
+  volume_nodered:
+    driver: local
+
+networks:
+  mosquitto-nodered:
+    driver: bridge
