@@ -8,11 +8,13 @@ services:
       - ./config:/mqtt/config:ro
       - ./logs:/mqtt/logs:rw
     ports:
+      - "1883:1883"
+
       - "8883:8883"
       - "9883:9883"
     networks:
       - mosquitto-nodered
-    mem_limit: 200m
+    mem_limit: 1g
     logging:
       driver: "json-file"
       options:
