@@ -33,6 +33,16 @@ services:
     networks:
       - mosquitto-nodered
 
+  nifi:
+    image: mkobit/nifi:1.0.0-openjdk-8
+    restart: always
+    volumes:
+      - ./config/ca_certificates:/opt/certs
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+
+
 volumes:
   volume_nodered:
     driver: local
